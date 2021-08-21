@@ -3,9 +3,16 @@ var generateBtn = document.querySelector("#generate");
 
 // Write password to the #password input
 function writePassword() {
-  var userInput = prompt("How many characters");
-  if (userInput < 8 || userInput > 128 || userInput === "") {
-    alert("You must enter length greater than 8 but less than 129");
+  var userInput = Number(
+    prompt("How many characters would you like? (between 8 - 129)")
+  );
+  if (
+    userInput < 8 ||
+    userInput > 128 ||
+    userInput === "" ||
+    isNaN(userInput)
+  ) {
+    alert("You must enter number length greater than 7 but less than 129");
     return;
   }
 
@@ -13,7 +20,6 @@ function writePassword() {
   var numericCharactersConfirm = confirm("Would you like Numeric Characters?");
   var lowerCaseComfirm = confirm("Would you like Lowercase Letters?");
   var upperCaseConfirm = confirm("Would you like Uppercase Letters?");
-  var passLength = parseInt(userInput);
 
   var specialCharacters = [
     "!",
@@ -100,14 +106,6 @@ function writePassword() {
     "Z",
   ];
 
-  //lowerOne = String.fromCharCode(Math.floor(Math.random() * 26) +97);
-  //upperOne = String.fromCharCode(Math.floor(Math.random() * 26) +65);
-  //numOne = String.fromCharCode(Math.floor(Math.random() * 10) +48);
-  //symbalOne = !"#$%&'()*+,-./:;<=>?@[\]^_`{|}~;
-  //
-
-  // var password = generatePassword();
-
   var passwordOptions = [];
   var password = [];
 
@@ -128,7 +126,7 @@ function writePassword() {
     console.log(passwordOptions);
   }
 
-  for (var i = 0; i < passLength; i++) {
+  for (var i = 0; i < userInput; i++) {
     var randomNumber = Math.floor(Math.random() * passwordOptions.length - 1);
     var randomCharacters = passwordOptions[randomNumber];
     password.push(randomCharacters);
@@ -138,7 +136,7 @@ function writePassword() {
   passwordText.value = actualPassword;
 
   console.log(password);
-  console.log(passLength);
+  console.log(userInput);
 }
 
 // Add event listener to generate button
